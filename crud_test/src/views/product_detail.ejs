@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= product.nombre %> - Note&Neko</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main class="main-content">
+      <div class="product-detail">
+        <div class="product-images">
+          <% if (product.imagenes && product.imagenes.length > 0) { %>
+            <% product.imagenes.forEach(img => { %>
+              <img src="<%= img %>" alt="<%= product.nombre %>" class="product-image-large" />
+            <% }) %>
+          <% } else { %>
+            <img src="/img/default.jpg" alt="<%= product.nombre %>" class="product-image-large" />
+          <% } %>
+        </div>
+        <div class="product-info">
+          <h1><%= product.nombre %></h1>
+          <p class="product-price">S/ <%= product.variaciones && product.variaciones[0] ? product.variaciones[0].precio : '0.00' %></p>
+          <p class="product-description"><%= product.descripcion %></p>
+          <form action="/cart/add" method="POST">
+            <input type="hidden" name="productId" value="<%= product._id %>" />
+            <input type="number" name="quantity" value="1" min="1" max="99" class="quantity-input" />
+            <button type="submit" class="btn">Añadir al carrito</button>
+          </form>
+        </div>
+      </div>
+      <section class="comments-section">
+        <h2>Comentarios</h2>
+        <div id="comments-list">
+          <% if (comments && comments.length > 0) { %>
+            <% comments.forEach(comment => { %>
+              <div class="comment">
+                <span class="comment-username"><%= comment.nombreUsuario %></span>
+                <span class="comment-date"><%= new Date(comment.fecha).toLocaleDateString() %></span>
+                <p class="comment-text"><%= comment.texto %></p>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p>No hay comentarios aún.</p>
+          <% } %>
+        </div>
+        <form action="/comments/create" method="POST" class="comment-form">
+          <input type="hidden" name="productoId" value="<%= product._id %>" />
+          <input type="text" name="nombreUsuario" placeholder="Tu nombre" required />
+          <textarea name="texto" placeholder="Deja tu comentario..." required></textarea>
+          <button type="submit" class="btn">Publicar comentario</button>
+        </form>
+      </section>
+    </main>
+    <%- include('partials/footer') %>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

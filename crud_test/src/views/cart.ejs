@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Carrito - Note&Neko</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main class="main-content">
+      <h1>Carrito de Compras</h1>
+      
+      <% if (cartItems && cartItems.length > 0) { %>
+        <div class="cart-container">
+          <div class="cart-items">
+            <% cartItems.forEach(item => { %>
+              <div class="cart-item">
+                <img src="<%= item.product.imagenes[0] || '/img/default.jpg' %>" alt="<%= item.product.nombre %>" class="cart-item-image" />
+                <div class="cart-item-info">
+                  <h3><%= item.product.nombre %></h3>
+                  <p class="cart-item-price">S/ <%= item.price.toFixed(2) %></p>
+                </div>
+                <div class="cart-item-quantity">
+                  <form action="/cart/update" method="POST" style="display: inline;">
+                    <input type="hidden" name="productId" value="<%= item.productId %>" />
+                    <input type="number" name="quantity" value="<%= item.quantity %>" min="1" max="99" class="quantity-input" />
+                    <button type="submit" class="btn btn-small">Actualizar</button>
+                  </form>
+                </div>
+                <div class="cart-item-subtotal">
+                  <p>S/ <%= item.subtotal.toFixed(2) %></p>
+                </div>
+                <div class="cart-item-actions">
+                  <form action="/cart/remove" method="POST" style="display: inline;">
+                    <input type="hidden" name="productId" value="<%= item.productId %>" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                  </form>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+          
+          <div class="cart-summary">
+            <h2>Resumen</h2>
+            <div class="cart-total">
+              <p><strong>Total: S/ <%= total.toFixed(2) %></strong></p>
+            </div>
+            <div class="cart-actions">
+              <form action="/cart/clear" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
+              </form>
+              <a href="/checkout" class="btn btn-primary">Proceder al Pago</a>
+            </div>
+          </div>
+        </div>
+      <% } else { %>
+        <div class="empty-cart">
+          <p>Tu carrito está vacío.</p>
+          <a href="/" class="btn">Continuar Comprando</a>
+        </div>
+      <% } %>
+    </main>
+    <%- include('partials/footer') %>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

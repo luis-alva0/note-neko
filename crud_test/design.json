@@ -1,0 +1,275 @@
+{
+    "design_system": {
+      "name": "Note&Neko",
+      "theme": {
+        "primary_color": "#D8A7B1",
+        "secondary_color": "#F5E6E8",
+        "accent_color": "#8A4A5B",
+        "background_color": "#FFFFFF",
+        "text_color": "#000000",
+        "link_color": "#8A4A5B",
+        "button_color": "#D8A7B1",
+        "hover_color": "#C68E9B",
+        "border_color": "#D8A7B1",
+        "placeholder_color": "#D8A7B1"
+      },
+      "typography": {
+        "font_family": "sans-serif",
+        "headings": {
+          "font_size": "24px",
+          "font_weight": "bold",
+          "color": "#8A4A5B"
+        },
+        "body": {
+          "font_size": "16px",
+          "font_weight": "normal",
+          "color": "#000000"
+        },
+        "button": {
+          "font_size": "14px",
+          "font_weight": "bold",
+          "color": "#FFFFFF"
+        }
+      },
+      "layout": {
+        "header": {
+          "height": "60px",
+          "background_color": "#F5E6E8",
+          "padding": "10px",
+          "logo": {
+            "width": "40px",
+            "height": "40px",
+            "position": "left"
+          },
+          "nav": {
+            "items": ["Inicio", "Productos", "Comunidad"],
+            "spacing": "20px",
+            "alignment": "center"
+          },
+          "icons": {
+            "size": "24px",
+            "spacing": "10px",
+            "position": "right",
+            "items": ["envelope", "cart", "user"]
+          }
+        },
+        "main": {
+          "padding": "20px",
+          "sections": [
+            {
+              "title": "Productos Destacados",
+              "grid": {
+                "columns": 4,
+                "gap": "20px",
+                "card": {
+                  "width": "200px",
+                  "height": "250px",
+                  "border_radius": "10px",
+                  "border": "2px solid #D8A7B1",
+                  "image": {
+                    "width": "180px",
+                    "height": "180px",
+                    "background_color": "#D8A7B1"
+                  },
+                  "content": {
+                    "title": {
+                      "font_size": "16px",
+                      "color": "#000000"
+                    },
+                    "price": {
+                      "font_size": "14px",
+                      "color": "#8A4A5B",
+                      "prefix": "S/"
+                    },
+                    "icons": {
+                      "size": "20px",
+                      "items": ["heart", "cart"]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Últimos ingresos",
+              "grid": {
+                "columns": 3,
+                "gap": "20px",
+                "card": {
+                  "width": "200px",
+                  "height": "250px",
+                  "border_radius": "10px",
+                  "border": "2px solid #D8A7B1",
+                  "image": {
+                    "width": "180px",
+                    "height": "180px",
+                    "background_color": "#D8A7B1"
+                  }
+                }
+              }
+            },
+            {
+              "title": "Donde la papelería cobra vida",
+              "product_detail": {
+                "image_grid": {
+                  "columns": 2,
+                  "gap": "10px",
+                  "card": {
+                    "width": "100px",
+                    "height": "100px",
+                    "background_color": "#D8A7B1"
+                  }
+                },
+                "main_image": {
+                  "width": "300px",
+                  "height": "300px",
+                  "background_color": "#D8A7B1"
+                },
+                "content": {
+                  "title": {
+                    "font_size": "20px",
+                    "color": "#000000"
+                  },
+                  "price": {
+                    "font_size": "18px",
+                    "color": "#8A4A5B",
+                    "prefix": "S/"
+                  },
+                  "button": {
+                    "background_color": "#D8A7B1",
+                    "color": "#FFFFFF",
+                    "text": "Añadir al carrito",
+                    "padding": "5px 10px",
+                    "border_radius": "5px"
+                  },
+                  "comments": {
+                    "section": {
+                      "border_top": "1px solid #D8A7B1",
+                      "padding_top": "10px"
+                    },
+                    "comment": {
+                      "font_size": "14px",
+                      "color": "#000000",
+                      "username": {
+                        "color": "#8A4A5B"
+                      },
+                      "rating": {
+                        "size": "16px",
+                        "color": "#FFD700"
+                      },
+                      "icons": {
+                        "size": "16px",
+                        "items": ["thumbs_up", "thumbs_down"]
+                      }
+                    },
+                    "input": {
+                      "background_color": "#F5E6E8",
+                      "padding": "5px",
+                      "border_radius": "5px",
+                      "placeholder": "Deja tu comentario..."
+                    }
+                  },
+                  "description": {
+                    "font_size": "14px",
+                    "color": "#000000"
+                  }
+                }
+              }
+            },
+            {
+              "title": "Categoría 1",
+              "grid": {
+                "columns": 5,
+                "gap": "20px",
+                "card": {
+                  "width": "200px",
+                  "height": "250px",
+                  "border_radius": "10px",
+                  "border": "2px solid #D8A7B1",
+                  "image": {
+                    "width": "180px",
+                    "height": "180px",
+                    "background_color": "#D8A7B1"
+                  },
+                  "content": {
+                    "title": {
+                      "font_size": "16px",
+                      "color": "#000000"
+                    },
+                    "price": {
+                      "font_size": "14px",
+                      "color": "#8A4A5B",
+                      "prefix": "S/"
+                    },
+                    "icons": {
+                      "size": "20px",
+                      "items": ["heart", "cart"]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Categoría 2",
+              "grid": {
+                "columns": 5,
+                "gap": "20px",
+                "card": {
+                  "width": "200px",
+                  "height": "250px",
+                  "border_radius": "10px",
+                  "border": "2px solid #D8A7B1",
+                  "image": {
+                    "width": "180px",
+                    "height": "180px",
+                    "background_color": "#D8A7B1"
+                  },
+                  "content": {
+                    "title": {
+                      "font_size": "16px",
+                      "color": "#000000"
+                    },
+                    "price": {
+                      "font_size": "14px",
+                      "color": "#8A4A5B",
+                      "prefix": "S/"
+                    },
+                    "icons": {
+                      "size": "20px",
+                      "items": ["heart", "cart"]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "components": {
+        "card": {
+          "border_radius": "10px",
+          "border": "2px solid #D8A7B1",
+          "padding": "10px",
+          "shadow": "none"
+        },
+        "button": {
+          "border_radius": "5px",
+          "padding": "5px 10px",
+          "cursor": "pointer"
+        },
+        "icon": {
+          "size": "20px",
+          "color": "#000000"
+        }
+      },
+      "spacing": {
+        "small": "5px",
+        "medium": "10px",
+        "large": "20px"
+      },
+      "breakpoints": {
+        "mobile": "576px",
+        "tablet": "768px",
+        "desktop": "992px"
+      }
+    }
+  }

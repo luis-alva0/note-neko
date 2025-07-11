@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Mi Perfil - Note&Neko</title>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <main class="main-content">
+      <div class="auth-container">
+        <h1>Mi Perfil</h1>
+        
+        <% if (error) { %>
+          <div class="error-message">
+            <%= error %>
+          </div>
+        <% } %>
+        
+        <% if (success) { %>
+          <div class="success-message">
+            <%= success %>
+          </div>
+        <% } %>
+        
+        <div class="profile-info">
+          <h2>Información de la cuenta</h2>
+          <p><strong>Nombre:</strong> <%= user.nombre %></p>
+          <p><strong>Correo:</strong> <%= user.correo %></p>
+          <p><strong>Rol:</strong> <%= user.rol %></p>
+        </div>
+        
+        <form action="/auth/profile" method="POST" class="auth-form">
+          <h2>Actualizar información</h2>
+          
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" value="<%= user.nombre %>" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Opcional">
+          </div>
+          
+          <div class="form-group">
+            <label for="calle">Calle</label>
+            <input type="text" id="calle" name="direccion[calle]" placeholder="Opcional">
+          </div>
+          
+          <div class="form-group">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" id="ciudad" name="direccion[ciudad]" placeholder="Opcional">
+          </div>
+          
+          <div class="form-group">
+            <label for="pais">País</label>
+            <input type="text" id="pais" name="direccion[pais]" placeholder="Opcional">
+          </div>
+          
+          <div class="form-group">
+            <label for="codigoPostal">Código Postal</label>
+            <input type="text" id="codigoPostal" name="direccion[codigoPostal]" placeholder="Opcional">
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Actualizar perfil</button>
+        </form>
+        
+        <div class="auth-links">
+          <a href="/auth/logout" class="btn btn-danger">Cerrar sesión</a>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Comunidad - Note&Neko</title>
+    <style>
+      .feed-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+      .feed-card {
+        background: var(--secondary-color);
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        margin-bottom: var(--spacing-large);
+        padding: var(--spacing-medium);
+        display: flex;
+        gap: var(--spacing-medium);
+        align-items: flex-start;
+        box-shadow: 0 2px 8px rgba(216, 167, 177, 0.08);
+      }
+      .feed-product-img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        background: var(--primary-color);
+        flex-shrink: 0;
+      }
+      .feed-content {
+        flex: 1;
+      }
+      .feed-meta {
+        font-size: 13px;
+        color: var(--accent-color);
+        margin-bottom: 4px;
+      }
+      .feed-author {
+        font-weight: bold;
+        color: var(--accent-color);
+      }
+      .feed-product {
+        color: var(--link-color);
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .feed-date {
+        color: #888;
+        font-size: 12px;
+        margin-left: 8px;
+      }
+      .feed-text {
+        font-size: 15px;
+        color: var(--text-color);
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main class="main-content">
+      <h1>Comunidad</h1>
+      <div class="feed-container">
+        <% if (comments && comments.length > 0) { %>
+          <% comments.forEach(comment => { %>
+            <div class="feed-card">
+              <img class="feed-product-img" src="<%= comment.productoId && comment.productoId.imagenes && comment.productoId.imagenes[0] ? comment.productoId.imagenes[0] : '/img/default.jpg' %>" alt="<%= comment.productoId ? comment.productoId.nombre : 'Producto' %>">
+              <div class="feed-content">
+                <div class="feed-meta">
+                  <span class="feed-author"><%= comment.nombreUsuario %></span>
+                  <span class="feed-date"><%= new Date(comment.fecha).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' }) %></span>
+                  <span>comentó en</span>
+                  <% if (comment.productoId) { %>
+                    <a class="feed-product" href="/products/<%= comment.productoId._id %>"><%= comment.productoId.nombre %></a>
+                  <% } else { %>
+                    <span class="feed-product">[Producto eliminado]</span>
+                  <% } %>
+                </div>
+                <div class="feed-text"><%= comment.texto %></div>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>No hay comentarios en la comunidad todavía.</p>
+        <% } %>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

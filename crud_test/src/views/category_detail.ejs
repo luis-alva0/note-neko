@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= category.nombre %> - Note&Neko</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main class="main-content">
+      <h1><%= category.nombre %></h1>
+      <p><%= category.descripcion %></p>
+      <div class="product-grid">
+        <% if (category.products && category.products.length > 0) { %>
+          <% category.products.forEach(product => { %>
+            <div class="product-card">
+              <img src="<%= product.imagenes[0] || '/img/default.jpg' %>" alt="<%= product.nombre %>" class="product-image" />
+              <div class="product-info">
+                <h2 class="product-title"><%= product.nombre %></h2>
+                <p class="product-price">S/ <%= product.variaciones && product.variaciones[0] ? product.variaciones[0].precio : '0.00' %></p>
+                <a href="/products/<%= product._id %>" class="btn">Ver Detalle</a>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>No hay productos en esta categoría.</p>
+        <% } %>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

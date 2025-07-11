@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/8ha9m6.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Admin - Note&Neko</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="main-content">
+      <h1 style="color: var(--accent-color); font-size: 24px; font-weight: bold;">Administrar Productos</h1>
+      <div class="admin-section" style="background: var(--secondary-color); border-radius: 10px; padding: var(--spacing-large); margin-bottom: var(--spacing-large);">
+        <h2 style="color: var(--accent-color); font-size: 20px;">Agregar Producto</h2>
+        <form action="/admin/products/create" method="POST" class="admin-form" style="display: flex; flex-wrap: wrap; gap: var(--spacing-medium); align-items: flex-end;">
+          <input type="text" name="nombre" placeholder="Nombre" required class="form-group" style="flex: 1; min-width: 180px;" />
+          <input type="text" name="descripcion" placeholder="Descripción" required class="form-group" style="flex: 2; min-width: 220px;" />
+          <select name="categoria" required class="form-group" style="flex: 1; min-width: 160px;">
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <% categories.forEach(function(category) { %>
+              <option value="<%= category.nombre %>"><%= category.nombre %></option>
+            <% }) %>
+          </select>
+          <input type="number" name="precio" placeholder="Precio" min="0" step="0.01" required class="form-group" style="flex: 1; min-width: 120px;" />
+          <input type="text" name="imagen" placeholder="Enlace de imagen" required class="form-group" style="flex: 2; min-width: 220px;" />
+          <button type="submit" class="btn">Agregar</button>
+        </form>
+      </div>
+      <div class="admin-section" style="background: var(--secondary-color); border-radius: 10px; padding: var(--spacing-large);">
+        <h2 style="color: var(--accent-color); font-size: 20px;">Lista de Productos</h2>
+        <table style="width: 100%; border-collapse: collapse; background: var(--background-color);">
+          <thead>
+            <tr style="background: var(--primary-color); color: var(--text-color);">
+              <th style="padding: var(--spacing-small); border-radius: 10px 0 0 0;">Nombre</th>
+              <th style="padding: var(--spacing-small);">Descripción</th>
+              <th style="padding: var(--spacing-small);">Precio</th>
+              <th style="padding: var(--spacing-small);">Imagen</th>
+              <th style="padding: var(--spacing-small); border-radius: 0 10px 0 0;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(function(product) { %>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: var(--spacing-small);"><%= product.nombre %></td>
+                <td style="padding: var(--spacing-small);"><%= product.descripcion %></td>
+                <td style="padding: var(--spacing-small); text-align: center;">
+                  <% if (product.variaciones && product.variaciones.length > 0) { %>
+                    S/ <%= product.variaciones[0].precio %>
+                  <% } else { %>
+                    N/A
+                  <% } %>
+                </td>
+                <td style="padding: var(--spacing-small); text-align: center;">
+                  <% if (product.imagenes && product.imagenes.length > 0) { %>
+                    <img src="<%= product.imagenes[0] %>" alt="Imagen" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px; border: 2px solid var(--border-color); background: var(--primary-color);" />
+                  <% } else { %>
+                    <span style="color: var(--placeholder-color);">Sin imagen</span>
+                  <% } %>
+                </td>
+                <td style="padding: var(--spacing-small); text-align: center;">
+                  <form action="/admin/products/delete/<%= product._id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" style="margin-right: 5px;">Eliminar</button>
+                  </form>
+                  <button class="btn btn-primary" style="margin-right: 5px;" onclick="document.getElementById('edit-<%= product._id %>').style.display='block'">Editar</button>
+                  <div id="edit-<%= product._id %>" style="display:none; background: var(--secondary-color); border: 2px solid var(--border-color); border-radius: 10px; padding: var(--spacing-medium); margin-top: var(--spacing-small);">
+                    <form action="/admin/products/update/<%= product._id %>" method="POST" style="display: flex; flex-wrap: wrap; gap: var(--spacing-small); align-items: flex-end;">
+                      <input type="text" name="nombre" value="<%= product.nombre %>" required class="form-group" style="flex: 1; min-width: 120px;" />
+                      <input type="text" name="descripcion" value="<%= product.descripcion %>" required class="form-group" style="flex: 2; min-width: 180px;" />
+                      <select name="categoria" required class="form-group" style="flex: 1; min-width: 120px;">
+                        <% categories.forEach(function(category) { %>
+                          <option value="<%= category.nombre %>" <%= product.categoria === category.nombre ? 'selected' : '' %>><%= category.nombre %></option>
+                        <% }) %>
+                      </select>
+                      <input type="number" name="precio" value="<%= (product.variaciones && product.variaciones.length > 0) ? product.variaciones[0].precio : '' %>" min="0" step="0.01" required class="form-group" style="flex: 1; min-width: 100px;" />
+                      <input type="text" name="imagen" value="<%= (product.imagenes && product.imagenes.length > 0) ? product.imagenes[0] : '' %>" placeholder="Enlace de imagen" required class="form-group" style="flex: 2; min-width: 180px;" />
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                      <button type="button" class="btn" style="background: var(--border-color); color: var(--accent-color);" onclick="document.getElementById('edit-<%= product._id %>').style.display='none'">Cancelar</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/js/code.js"></script>
+  </body>
+</html> 

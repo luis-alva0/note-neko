@@ -1,0 +1,346 @@
+const categorySchema = new Schema({
+  nombre: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  descripcion: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  imagen: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, {
+  timestamps: true
+});
+
+const commentSchema = new Schema({
+  productoId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Producto',
+    required: true
+  },
+  usuarioId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  nombreUsuario: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  texto: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  imagenes: [
+    {
+      type: String,
+      trim: true
+    }
+  ],
+  fecha: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  editado: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  respuestas: [
+    {
+      _id: {
+        type: Schema.Types.ObjectId,
+        auto: true
+      },
+      usuarioId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      nombreUsuario: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      texto: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      imagenes: [
+        {
+          type: String,
+          trim: true
+        }
+      ],
+      fecha: {
+        type: Date,
+        required: true,
+        default: Date.now
+      },
+      editado: {
+        type: Boolean,
+        required: true,
+        default: false
+      }
+    }
+  ]
+}, {
+  timestamps: true
+});
+
+const orderSchema = new Schema({
+  usuarioId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  correo: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true
+  },
+  productos: [
+    {
+      productoId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Producto',
+        required: true
+      },
+      variacionId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Variacion',
+        required: true
+      },
+      nombre: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      cantidad: {
+        type: Number,
+        required: true,
+        min: 1
+      },
+      precioUnitario: {
+        type: Number,
+        required: true,
+        min: 0
+      }
+    }
+  ],
+  total: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  estado: {
+    type: String,
+    required: true,
+    enum: ['pendiente', 'procesando', 'enviado', 'entregado', 'cancelado'],
+    default: 'pendiente'
+  },
+  direccionEnvio: {
+    calle: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    ciudad: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    pais: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    codigoPostal: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  },
+  fechaPedido: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  metodoPago: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, {
+  timestamps: true
+});
+
+const productSchema = new Schema({
+  nombre: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  descripcion: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  categoria: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  imagenes: [
+    {
+      type: String,
+      required: true,
+      trim: true
+    }
+  ],
+  etiquetas: [
+    {
+      type: String,
+      required: true,
+      trim: true
+    }
+  ],
+  variaciones: [
+    {
+      _id: {
+        type: Schema.Types.ObjectId,
+        auto: true
+      },
+      tipo: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      valor: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      precio: {
+        type: Number,
+        required: true,
+        min: 0
+      },
+      stock: {
+        type: Number,
+        required: true,
+        min: 0
+      }
+    }
+  ],
+  fechaCreacion: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
+  ]
+}, {
+  timestamps: true
+});
+
+
+const userSchema = new Schema({
+  nombre: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  correo: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true
+  },
+  contraseña: {
+    type: String,
+    required: true
+  },
+  direccion: {
+    calle: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    ciudad: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    pais: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    codigoPostal: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  },
+  telefono: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  rol: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  fechaRegistro: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  carrito: [
+    {
+      productoId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Producto',
+        required: true
+      },
+      variacionId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Variacion',
+        required: true
+      },
+      cantidad: {
+        type: Number,
+        required: true,
+        min: 1
+      }
+    }
+  ],
+  favoritos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Producto',
+      required: true
+    }
+  ]
+}, {
+  timestamps: true
+});

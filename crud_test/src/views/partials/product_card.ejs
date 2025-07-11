@@ -1,0 +1,8 @@
+<div class="product-card">
+  <img src="<%= product.imagenes[0] || '/img/default.jpg' %>" alt="<%= product.nombre %>" class="product-image" />
+  <div class="product-info">
+    <h2 class="product-title"><%= product.nombre %></h2>
+    <p class="product-price">S/ <%= product.variaciones && product.variaciones[0] ? product.variaciones[0].precio : '0.00' %></p>
+    <a href="/products/<%= product._id %>" class="btn">Ver Detalle</a>
+  </div>
+</div> 
